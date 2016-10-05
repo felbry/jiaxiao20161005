@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="mycss/addStudent.css">
+    <title></title>
+</head>
+<body style="background-image: url('myimg/addStudent.jpg');background-repeat: no-repeat; background-size: 1920px 1080px">
+    <div class="container-fluid">
+        <ul class="nav nav-tabs">
+            <li role="presentation"><a href="index.htm" class="as"><strong>主页</strong></a></li>
+            <li role="presentation" class="right"><a href="adminMaster1.html" class="as"><strong>操作中心</strong></a></li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="row rowheight">
+            <h2 class="col-xs-5 col-xs-offset-1">查询/删除学员信息</h2>
+        </div>
+        <div class="col-xs-8 col-xs-offset-1">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="finduser" class="col-sm-2 control-label">请输入学员ID</label>
+                    <div class="col-sm-5">
+                        <input type="number" class="form-control" id="finduser" placeholder="手机号">
+                    </div>
+                </div>
+
+
+            </form>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default" id="find">查询</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-danger" id="delete">删除学员信息</button>
+                </div>
+                <div class="col-sm-offset-2 col-sm-10">
+                    <br>
+                    <p style="color: red;" id="blankuser"> </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row rowheight">
+            <h2 class="col-xs-5 col-xs-offset-1">新增/修改学员信息&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-default" id="clearAll">全部清空</button></h2>
+        </div>
+        <div class="col-xs-8 col-xs-offset-1">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="username" class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-5">
+                        <input type="number" class="form-control" id="username" placeholder="手机号">
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="col-sm-3" id="validateUsername"> </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="password" placeholder="身份证号后六位">
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="col-sm-3" id="validatePassword"> </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="teacher" class="col-sm-2 control-label">教练</label>
+                    <div class="col-sm-5">
+                        <radio name="teacher" id="teacher" class="active">
+                            <!--
+                            <label>
+                                <input type="radio" name="teacher" value="1"> 于教练
+                            </label>
+                            <label>
+                                <input type="radio" name="teacher" value="2"> 吴教练
+                            </label>
+                            -->
+                        </radio>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="col-sm-3" id="validateTeacher"> </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="stuname" class="col-sm-2 control-label">学生姓名</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="stuname" placeholder="学生姓名">
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="col-sm-3" id="validateStuname"> </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="tel" class="col-sm-2 control-label">学生手机号</label>
+                    <div class="col-sm-5">
+                        <input type="number" class="form-control" id="tel" placeholder="手机号">
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="col-sm-3" id="validateTel"> </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sex" class="col-sm-2 control-label">性别</label>
+                    <div class="col-sm-5">
+                        <radio name="sex" id="sex">
+                            <label>
+                                <input type="radio" name="sex" value="男" class="ischecked1"> 男
+                            </label>
+                            <label>
+                                <input type="radio" name="sex" value="女" class="ischecked1"> 女
+                            </label>
+                            <label>
+                                <input type="radio" name="sex" value="" class="ischecked1"> 不明
+                            </label>
+                        </radio>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="col-sm-3" id="validateSex"> </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label">地址&nbsp;(选填)</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="address" placeholder="家庭住址或所在地">
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="col-sm-3">
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="grade" class="col-sm-2 control-label">年级&nbsp;(选填)</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="grade" placeholder="学生所在年级">
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="col-sm-3">
+                        <p></p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ident" class="col-sm-2 control-label">身份证号</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control" id="ident" placeholder="身份证号">
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="col-sm-3" id="validateIdent"> </div>
+                </div>
+
+
+            </form>
+            <div id="activeChange">
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default" id="sub">新增信息提交</button>&nbsp;&nbsp;&nbsp;<button type="submit" class="btn btn-default" id="change">修改信息提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="myjs/addStudent.js"></script>
+</body>
+</html>

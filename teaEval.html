@@ -1,0 +1,127 @@
+﻿﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <title>教练评价表</title>
+    <link rel="stylesheet" href="mycss/teaEval.css" />
+    <style>
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            display: inline-block;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        input.labelauty + label {
+            font: 14px "Microsoft Yahei";
+        }
+
+        button {
+            background-color: white;
+            border: 2px solid #555555;
+            color: black;
+            display: block;
+            margin-top: 15px;
+            padding: 10px 32px;
+            text-align: center;
+            font-size: 16px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555555;
+            color: white;
+        }
+
+        .warning {
+            margin-top: 15px;
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <h1>教练评价表</h1>
+        <h3>服务态度</h3>
+        <ul class="dowebok">
+            <li><input type="radio" name="attitude" data-labelauty="优（90分以上）" data-flag="1" /></li>
+            <li><input type="radio" name="attitude" data-labelauty="良（80-89）" data-flag="2" /></li>
+            <li><input type="radio" name="attitude" data-labelauty="中（70-79）" data-flag="3" /></li>
+            <li><input type="radio" name="attitude" data-labelauty="合格（60-69）" data-flag="4" /></li>
+            <li><input type="radio" name="attitude" data-labelauty="差（60分以下）" data-flag="5" /></li>
+        </ul>
+
+        <h3>教学技能</h3>
+        <ul class="dowebok">
+            <li><input type="radio" name="skill" data-labelauty="优（90分以上）" data-flag="1" /></li>
+            <li><input type="radio" name="skill" data-labelauty="良（80-89）" data-flag="2" /></li>
+            <li><input type="radio" name="skill" data-labelauty="中（70-79）" data-flag="3" /></li>
+            <li><input type="radio" name="skill" data-labelauty="合格（60-69）" data-flag="4" /></li>
+            <li><input type="radio" name="skill" data-labelauty="差（60分以下）" data-flag="5" /></li>
+        </ul>
+
+        <h3>纪律情况</h3>
+        <h4 style="display: inline-block">有无无故迟到或缺勤情况</h4>
+        <ul class="dowebok">
+            <li><input type="radio" name="attendance" data-labelauty="有" data-flag="0" /></li>
+            <li><input type="radio" name="attendance" data-labelauty="无" data-flag="1" /></li>
+        </ul>
+        <h4>有无吃拿卡要情况</h4>
+        <ul class="dowebok">
+            <li><input type="radio" name="steal" data-labelauty="有" data-flag="0" /></li>
+            <li><input type="radio" name="steal" data-labelauty="无" data-flag="1" /></li>
+        </ul>
+        <h4>有无恶言恶语、中伤学员情况</h4>
+        <ul class="dowebok">
+            <li><input type="radio" name="attack" data-labelauty="有" data-flag="0" /></li>
+            <li><input type="radio" name="attack" data-labelauty="无" data-flag="1" /></li>
+        </ul>
+
+        <h3>综合评价</h3>
+        <ul class="dowebok">
+            <li><input type="radio" name="comprehensive" data-labelauty="优（90分以上）" data-flag="1" /></li>
+            <li><input type="radio" name="comprehensive" data-labelauty="良（80-89）" data-flag="2" /></li>
+            <li><input type="radio" name="comprehensive" data-labelauty="中（70-79）" data-flag="3" /></li>
+            <li><input type="radio" name="comprehensive" data-labelauty="合格（60-69）" data-flag="4" /></li>
+            <li><input type="radio" name="comprehensive" data-labelauty="差（60分以下）" data-flag="5" /></li>
+        </ul>
+
+        <h3>其他建议（可选）</h3>
+        <textarea style="width:320px; height:180px; display:block"></textarea>
+
+        <button>提交</button>
+        <div class="warning">请将表格信息填写完整，再尝试提交</div>
+
+        <!--
+        <hr />
+
+        <h3>您擅长的技能（复选框）</h3>
+        <ul class="dowebok">
+            <li><input type="checkbox" name="checkbox" disabled=disabled checked=checked data-labelauty="HTML" /></li>
+            <li><input type="checkbox" name="checkbox" data-labelauty="CSS" /></li>
+            <li><input type="checkbox" name="checkbox" data-labelauty="JavaScript" /></li>
+            <li><input type="checkbox" name="checkbox" data-labelauty="SEO" /></li>
+            <li><input type="checkbox" name="checkbox" data-labelauty="PHP" /></li>
+            <li><input type="checkbox" name="checkbox" data-labelauty="JAVA" /></li>
+            <li><input type="checkbox" name="checkbox" data-labelauty=".NET" /></li>
+        </ul>
+
+        -->
+
+        <script src="myjs/jquery-1.8.3.min.js"></script>
+        <script src="myjs/jquery-labelauty.js"></script>
+        <script src="myjs/teaEvals.js"></script>
+    </center>
+
+    <div style="text-align:center;clear:both;">
+    </div>
+</body>
+</html>

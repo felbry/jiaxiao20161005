@@ -1,0 +1,31 @@
+﻿.as{
+    display: block;
+    margin-top: 8px;
+    margin-left: 15px;
+    color: black;
+}
+.rowheight{
+    margin-bottom: 25px;
+}
+.borderBaseSet{
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+.borderColorSet1{
+    border-left-color: #1b809e;
+}
+.borderColorSet2{
+    border-left-color: #ce4844;
+}
+.borderColorSet3{
+    border-left-color: #3c763d;
+}
+.borderColorSet4{
+    border-left-color: #aa6708;
+}
+.mylabel{
+    margin-bottom:10px;
+}

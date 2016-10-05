@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        window.onload = function () {
+            var urlstr = "AdminHandler.ashx?flags=7";
+            myAjax("POST", urlstr, "", function (data) {
+                //alert(data.toString());
+                if (data.toString() == "404") {
+                    alert("你还没有登录！");
+                    window.location.href = "index.htm";
+                }
+                else {
+                    alert(data.toString());
+                    //返回字符串说明
+
+                    //未来三天的时间和状态信息
+                    //格式：未来第一天日期,状态.未来第二天日期,状态.未来第三天日期,状态
+                    //返回教练和状态信息
+                    //格式：第一位是状态表示符（111代表是存在教练，000代表是没有一个教练）.教练唯一id,教练名字,状态信息.教练唯一id,教练名字,状态信息
+                    //返回车辆id,名字和状态信息
+                    //格式：第一位是状态表示符（111代表是存在车辆信息，000代表是没有一个车辆信息）.车辆唯一id,车辆名字,车辆所属教练唯一id,车辆所属教练名字,车辆状态信息.车辆唯一id,车辆名字,车辆所属教练唯一id,车辆所属教练名字,车辆状态信息
+                    //返回时间段id,名字和状态信息，和相对应的教练
+                    //格式：第一位是状态表示符（111代表是存在时间段信息，000代表是没有一个时间段信息）.时间唯一id,时间段名字,时间段所属教练唯一id,时间段所属教练名字,时间段状态信息.时间唯一id,时间段名字,时间段所属教练唯一id,时间段所属教练名字,时间段状态信息
+
+                }
+            })
+
+            //禁用datetime时间
+            //bantime,isban
+            var bantime = "2016/5/6";
+            var isban = 0;
+            var urlstr = "AdminHandler.ashx?flags=8&bookingflags=1&bantime=" + bantime + "&isban=" + isban;
+            //alert(urlstr);
+            myAjax("POST", urlstr, "", function (data) {
+                //alert(data.toString());
+                if (data.toString() == "404") {
+                    alert("你还没有登录！");
+                    window.location.href = "index.htm";
+                }
+                else {
+                    //alert(data.toString());
+                    if (data.toString() == "1") {
+                        alert("时间状态修改成功");
+                    } else if (data.toString() == "-1") {
+                        alert("时间状态修改失败");
+                    }
+                }
+            })
+            //禁用教练
+            //teaid,isban
+            var teaid = "2";
+            var isban = 0;
+            var urlstr = "AdminHandler.ashx?flags=8&bookingflags=2&teaid=" + teaid + "&isban=" + isban;
+            //alert(urlstr);
+            myAjax("POST", urlstr, "", function (data) {
+                //alert(data.toString());
+                if (data.toString() == "404") {
+                    alert("你还没有登录！");
+                    window.location.href = "index.htm";
+                }
+                else {
+                    //alert(data.toString());
+                    if (data.toString() == "1") {
+                        alert("教练状态修改成功");
+                    } else if (data.toString() == "-1") {
+                        alert("教练状态修改失败");
+                    }
+                }
+            })
+            //禁用车辆
+            //carid,isban,teaid
+            var carid = "0526";
+            var isban = 1;
+            var teaid = "1";
+            var urlstr = "AdminHandler.ashx?flags=8&bookingflags=3&teaid=" + teaid + "&isban=" + isban + "&carid=" + carid;
+            //alert(urlstr);
+            myAjax("POST", urlstr, "", function (data) {
+                //alert(data.toString());
+                if (data.toString() == "404") {
+                    alert("你还没有登录！");
+                    window.location.href = "index.htm";
+                }
+                else {
+                    //alert(data.toString());
+                    if (data.toString() == "1") {
+                        alert("车辆状态修改成功");
+                    } else if (data.toString() == "-1") {
+                        alert("车辆状态修改失败");
+                    }
+                }
+            })
+            //禁用时间段
+            //timeid,isban,teaid
+            var timeid = 1;
+            var isban = 1;
+            var teaid = "1";
+            var urlstr = "AdminHandler.ashx?flags=8&bookingflags=4&timeid=" + timeid + "&isban=" + isban + "&teaid=" + teaid;
+            //alert(urlstr);
+            myAjax("POST", urlstr, "", function (data) {
+                //alert(data.toString());
+                if (data.toString() == "404") {
+                    alert("你还没有登录！");
+                    window.location.href = "index.htm";
+                }
+                else {
+                    //alert(data.toString());
+                    if (data.toString() == "1") {
+                        alert("时间段状态修改成功");
+                    } else if (data.toString() == "-1") {
+                        alert("时间段状态修改失败");
+                    }
+                }
+            })
+        };
+
+        function myAjax(httpMethod, url, parames, callback) {
+            var xhr;
+            if (XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            }
+            else {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhr.open(httpMethod, url, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send(parames);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        callback(xhr.responseText);
+                    }
+                }
+            };
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

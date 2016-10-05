@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="mycss/index.css">
+    <script type="text/javascript">
+        window.onload = function () {
+            //动态更改公告
+            var announce = document.getElementById("announce");
+            var noticeflags = 1;
+            var urlstr = "AdminHandler.ashx?" + "&noticeflags=" + noticeflags;
+            var str1 = "";
+            var str2 = "";
+            var str3 = "";
+            var str4 = "";
+            var announcestr = "";
+            var count = 0;
+            myAjax("POST", urlstr, "", function (data) {
+                //alert(data.toString());
+                if (data.toString() == "404") {
+                    alert("你还没有登录！");
+                    window.location.href = "index.htm";
+                }
+                else {
+                    //alert(data.toString());
+                    var str = data.toString().split(',');
+                    if (str[0] == 0) {
+                        announce.innerHTML = "暂时没有相关公告";
+                    } else {
+                        for (var i = 1; i < str.length; i++) {
+                            if (i == 1) {
+                                str1 = str[i];
+                                count++;
+                                announcestr = announcestr + count.toString() + "." + str1 + "<br>";
+                            }
+                            if (i == 2) {
+                                str2 = str[i];
+                                count++;
+                                announcestr = announcestr + count.toString() + "." + str2 + "<br>";
+                            }
+                            if (i == 3) {
+                                str3 = str[i];
+                                count++;
+                                announcestr = announcestr + count.toString() + "." + str3 + "<br>";
+                            }
+                            if (i == 4) {
+                                str4 = str[i];
+                                count++;
+                                announcestr = announcestr + count.toString() + "." + str4 + "<br>";
+                            }
+                        }
+                        announce.innerHTML = announcestr;
+                    }
+                }
+                //announce.innerHTML = "1.预约系统开放时间为09：00到17.00之间<br> 2.一人只能预约一天中唯一车辆唯一时间段<br> 3.无故缺练者系统封停账户三天<br> 4.取消预约需要在预约日期前一天12点之前才能取消<br>";
+
+            })
+            var btn = document.getElementById("btnSubmit");
+            var username = document.getElementById("username");
+            var password = document.getElementById("password");
+            btn.onclick = function () {
+                var xhr;
+                var typename;
+                if (XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                }
+                else {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                var chkObjs1 = document.getElementsByName("actor");
+                myChoice(chkObjs1, function (data) {
+                    typename = data.toString();
+                })
+                xhr.open("GET", "IndexHandler.ashx?username=" + username.value + "&password=" + password.value + "&typename=" + typename, true);
+                xhr.send();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            if (xhr.responseText == "ok") {
+                                if (typename == "student") {
+                                    window.location.href = "stu.htm";
+                                }
+                                else {
+                                    window.location.href = "adminMaster1.html";
+                                }
+                            }
+                            else {
+                                alert(xhr.responseText);
+                            }
+                        }
+                    }
+                };
+                function myChoice(chkObjs, callback) {
+                    var bool = 0;
+                    var k = 0;
+                    for (var i = 0; i < chkObjs.length; i++) {
+                        if (chkObjs[i].checked) {
+                            k = i;
+                            bool = 1;
+                            break;
+                        }
+                    }
+                    if (bool == 1) {
+                        callback(chkObjs[k].value);
+                    }
+                }
+            };
+        };
+        function myAjax(httpMethod, url, parames, callback) {
+            var xhr;
+            if (XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            }
+            else {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhr.open(httpMethod, url, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send(parames);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        callback(xhr.responseText);
+                    }
+                }
+            };
+        }
+
+       
+    </script>
+</head>
+   <body style="background-image: url('myimg/bmw.jpg');background-repeat: no-repeat;background-size: cover">
+   <nav class="navbar navbar-default navbar-static-top">
+       <div class="container">
+           <div class="navbar-header">
+               <a class="navbar-brand" href="index.htm">
+                   <img alt="河工大驾校" src="">
+               </a>
+               <ul class="nav navbar-nav">
+                   <li><a href="#">驾校风采</a></li>
+                   <li><a href="#">师资团队</a></li>
+                   <li><a href="#">在线咨询</a></li>
+               </ul>
+           </div>
+           <form class="navbar-form navbar-right" role="search">
+               <div class="form-group">
+                   <input type="text" class="form-control" placeholder="Search">
+               </div>
+               <button type="submit" class="btn btn-default">Search</button>
+           </form>
+       </div>
+   </nav>
+  <div class="container body">
+    <div class="col-xs-5 left">
+        <div class="jumbotron">
+              <h2 style="font-family: stliti">公告：</h2>
+            <p style="font-family: stxinwei;font-size: 18px" id="announce">
+            </p>
+        </div>
+    </div>
+    <div class="col-xs-4 col-xs-offset-1 right">
+        <div class="form-group">
+          <label for="username" style="color: #FFFFFF">用户名</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="username" placeholder="手机号" required="required">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="password" style="color: #FFFFFF">密码</label>
+            <div class="input-group">
+                <input type="password" class="form-control" id="password" placeholder="身份证后六位" required="required">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></div>
+            </div>
+        </div>
+        <radio name="actor" class="radio">
+          <label style="color: #FFFFFF">
+            <input type="radio" name="actor" value="student" checked="checked"> 学生
+          </label>
+          <label style="color: #FFFFFF">
+            <input type="radio" name="actor" value="admin"> 管理员
+          </label>
+        </radio>
+        <input type="button" value="提交"  class="btn btn-default" name="btnSubmit" id="btnSubmit"/>
+    </div>
+  </div>
+</body>
+</html>

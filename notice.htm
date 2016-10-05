@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        window.onload = function () {
+            var noticeflags = 1;
+            var urlstr = "AdminHandler.ashx?flags=15" + "&noticeflags=" + noticeflags;
+            myAjax("POST", urlstr, "", function (data) {
+                //alert(data.toString());
+                if (data.toString() == "404") {
+                    alert("你还没有登录！");
+                    window.location.href = "index.htm";
+                }
+                else {
+                    //alert(data.toString());
+                }
+            })
+            noticeflags = 2;
+            var firstnotice = "1";
+            var secondnotice = "2";
+            var thirdnotice = "3";
+            var forthnotice = "4";
+            var urlstr = "AdminHandler.ashx?flags=15" + "&noticeflags=" + noticeflags + "&firstnotice=" + firstnotice + "&secondnotice=" + secondnotice + "&thirdnotice=" + thirdnotice + "&forthnotice=" + forthnotice;
+            myAjax("POST", urlstr, "", function (data) {
+                //alert(data.toString());
+                if (data.toString() == "404") {
+                    alert("你还没有登录！");
+                    window.location.href = "index.htm";
+                }
+                else {
+                    alert(data.toString());
+                }
+            })
+        };
+        function myAjax(httpMethod, url, parames, callback) {
+            var xhr;
+            if (XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            }
+            else {
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xhr.open(httpMethod, url, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send(parames);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200) {
+                        callback(xhr.responseText);
+                    }
+                }
+            };
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+     <script type="text/javascript">
+         window.onload = function () {
+             //请求后台服务器日期
+             var urlstr = "AdminHandler.ashx?flags=1";
+             myAjax("POST", urlstr, "", function (data) {
+                 //alert(data.toString());
+                 if (data.toString() == "404") {
+                     alert("你还没有登录！");
+                     window.location.href = "index.htm";
+                 }
+                 else if (data.toString() != "505") {
+                     document.getElementsByTagName("body")[0].innerHTML = data.toString();
+                 }
+             })
+         };
+         function myAjax(httpMethod, url, parames, callback) {
+             var xhr;
+             if (XMLHttpRequest) {
+                 xhr = new XMLHttpRequest();
+             }
+             else {
+                 xhr = new ActiveXObject("Microsoft.XMLHTTP");
+             }
+             xhr.open(httpMethod, url, true);
+             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+             xhr.send(parames);
+             xhr.onreadystatechange = function () {
+                 if (xhr.readyState == 4) {
+                     if (xhr.status == 200) {
+                         callback(xhr.responseText);
+                     }
+                 }
+             };
+         }
+     </script>
+</head>
+<body>
+
+
+</body>
+</html>
