@@ -43,7 +43,7 @@ public class TeaEvalHandler : IHttpHandler
     //将2个整数相除得到百分数
     public string ConvertIntToDouble(int i, int j)
     {
-        return (((double)i/(double)j)*100).ToString("0.00")+"%"; ;
+        return (((double)i / (double)j) * 100).ToString("0.00");    //去掉了 +"%"
     }
 
     public void ProcessRequest(HttpContext context)

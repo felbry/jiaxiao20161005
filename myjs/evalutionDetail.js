@@ -50,7 +50,7 @@
                 suggestionTemp = [];
             for (var i = 0, len = teaArr.length - 1; i < len; i++) {
                 var arr = teaArr[i].split(',');
-                console.log('arr: ' + arr);
+                //console.log('arr: ' + arr);
                 teaInfo.push([arr[0], arr[1], arr[2]]); //评教总人数，教练名，教练id
                 attitude.push([arr[3], arr[4], arr[5], arr[6], arr[7]]);
                 skill.push([arr[8], arr[9], arr[10], arr[11], arr[12]]);
@@ -64,6 +64,172 @@
                 suggestion.push(suggestionTemp);
                 suggestionTemp = [];
             }
+            
+            //先计算表头宽度
+            var wid = 90 / teaInfo.length;
+            for (var m = 0; m < teaInfo.length; m++) {
+                //表头填充
+                var td = $('<td class="info" style="width:' + wid + '%">' + teaInfo[m][1] + '</td>');
+                $('#theader').append(td);
+                //人数填充
+                var tdPerson = $('<td>' + teaInfo[m][0] + '</td>');
+                $('#persons').append(tdPerson);
+                //服务态度
+                var tdAttitude = $('<td><canvas class="attitude"></canvas></td>');
+                $('#attitude').append(tdAttitude);
+                //教学技能
+                var tdSkill = $('<td><canvas class="skill"></canvas></td>');
+                $('#skill').append(tdSkill);
+                //考勤
+                var tdAttendance = $('<td><canvas class="attendance"></canvas></td>');
+                $('#attendance').append(tdAttendance);
+                //吃拿卡要
+                var tdSteal = $('<td><canvas class="steal"></canvas></td>');
+                $('#steal').append(tdSteal);
+                //恶语中伤
+                var tdAttack = $('<td><canvas class="attack"></canvas></td>');
+                $('#attack').append(tdAttack);
+                //综合评价
+                var tdComprehensive = $('<td><canvas class="comprehensive"></canvas></td>');
+                $('#comprehensive').append(tdComprehensive);
+                //其他建议
+                $('#suggestion').html('<td class="active">其他建议</td>');
+                for (var n = 0; n < suggestion.length; n++) {
+                    var num = 0;
+                    if (suggestion[n][0])
+                        num = suggestion[n][0];
+                    var tdSuggestion = $('<td class="comments" style="padding-left: 15px"></td>').html('<b style="display:block">共' + num + '条建议：</b>');
+                    //限制只显示五条评论
+                    for (var t = 1; t < suggestion[n].length && t < 4; t++) {
+                        var p = $('<p></p>').text(t + '：' + suggestion[n][t]);
+                        tdSuggestion.append(p);
+                    }
+                    if (suggestion[n].length >= 4) {
+                        var p = $('<p></p>').html('<a href="#" data-id="' + n + '" class="lookAll">查看更多</a>');
+                        tdSuggestion.append(p);
+                    }
+                    $('#suggestion').append(tdSuggestion);
+                }
+                $('.lookAll').on('click', function () {
+                    var id = $(this).attr('data-id');
+                    $('#comments').html('');
+                    for (var i = 1; i < suggestion[id].length; i++) {
+                        var div = $('<div class="well well-sm"></div>').text(suggestion[id][i]);
+                        $('#comments').append(div);
+                    }
+                    return false;
+                })
+            }
+
+            //var testData = [[20, 20, 20, 20, 20], [10, 20, 30, 20, 10], [30, 10, 10, 20, 30]];
+            //canvas
+            var labelFirst = ["优", "良", "中", "合格", "差"],
+                labelSecond = ["有", "无"],
+                bg1 = ["#FF6384", "#36A2EB", "#FFCE56", "green", "pink"],
+                bg2 = ["#FF6384", "#36A2EB"];
+            $('.attitude').each(function (i) {
+                var ctx = $(this);
+                var data = {
+                    labels: labelFirst,
+                    datasets: [
+                        {
+                            data: attitude[i],
+                            backgroundColor: bg1
+                        }
+                    ]
+                };
+                var myPieChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data,
+                });
+            })
+
+            $('.skill').each(function (i) {
+                var ctx = $(this);
+                var data = {
+                    labels: labelFirst,
+                    datasets: [
+                        {
+                            data: skill[i],
+                            backgroundColor: bg1
+                        }
+                    ]
+                };
+                var myPieChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data,
+                });
+            })
+
+            $('.attendance').each(function (i) {
+                var ctx = $(this);
+                var data = {
+                    labels: labelSecond,
+                    datasets: [
+                        {
+                            data: attendance[i],
+                            backgroundColor: bg2
+                        }
+                    ]
+                };
+                var myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: data,
+                });
+            })
+
+            $('.steal').each(function (i) {
+                var ctx = $(this);
+                var data = {
+                    labels: labelSecond,
+                    datasets: [
+                        {
+                            data: steal[i],
+                            backgroundColor: bg2
+                        }
+                    ]
+                };
+                var myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: data,
+                });
+            })
+
+            $('.attack').each(function (i) {
+                var ctx = $(this);
+                var data = {
+                    labels: labelSecond,
+                    datasets: [
+                        {
+                            data: attack[i],
+                            backgroundColor: bg2
+                        }
+                    ]
+                };
+                var myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: data,
+                });
+            })
+
+            $('.comprehensive').each(function (i) {
+                var ctx = $(this);
+                var data = {
+                    labels: labelFirst,
+                    datasets: [
+                        {
+                            data: comprehensive[i],
+                            backgroundColor: bg1
+                        }
+                    ]
+                };
+                var myPieChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: data,
+                });
+            })
+
+            /*
             console.log(teaInfo);
             console.log(attitude);
             console.log(skill);
@@ -72,6 +238,35 @@
             console.log(attack);
             console.log(comprehensive);
             console.log(suggestion);
+            */
+            
+            /*
+            //综合分析绘图
+            var la = ['服务态度', '教学技能', '考勤', '吃拿卡要', '恶言恶语', '综合评价'];
+            var teaLabel = [];
+            teaInfo.forEach(function (v) { teaLabel.push(v[1]); });
+            var allData = [];   //以数组形式保存N个教练的各项占比
+            //attitude.forEach(function (v) { allData[0].push(v[1]); });
+            $('.compre').each(function (i) {
+                var ctx = $(this);
+                var data = {
+                    labels: teaLabel,
+                    datasets: [
+                        {
+                            label: la[i],
+                            backgroundColor: bg1,
+                            borderColor: bg1,
+                            borderWidth: 1,
+                            data: [65, 59, 80],
+                        }
+                    ]
+                };
+                var myBarChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: data
+                });
+            })
+            */
         }
     })
 })
