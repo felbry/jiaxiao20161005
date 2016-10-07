@@ -95,7 +95,12 @@
                 } else if (str === "-4") {
                     alert("当前评价开始时间有误，请输入从今天开始往后的时间作为开始时间");
                 } else if (str === "-5") {
-                    alert("当前评价开始时间小于结束时间，请重新输入");
+                    alert("当前评价开始时间晚于结束时间，请重新输入");
+                } else if (str === "-6") {
+                    alert("输入时间非法，请重新输入");
+                } else if (str === "-10") {
+                    alert("非法访问");
+                    window.location.href = "index.html";
                 }
                 else {
                     alert('系统繁忙，请重新尝试！');

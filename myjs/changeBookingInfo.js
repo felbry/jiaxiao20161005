@@ -66,6 +66,10 @@ myAjax("POST", urlstr, "", function (data) {
         teacherCollection = teacherArr;     //全局变量
         var immediateTeaInfo = document.getElementById("immediateTeaInfo");
         immediateTeaInfo.innerHTML = updateTeaInfo(teacherArr);
+        //动态加载系统开放时间-------------------------最后一个需要添加的
+        //sysStartTime为系统开放时间（阿拉伯数字0-24），sysEndTime为系统结束时间为（阿拉伯数字0-24）
+        $('#startTime').val(sysStartTime);
+        $('#endTime').val(sysEndTime);
         //动态加载车辆可以预约的次数
         var carpeoplenum = options[4].toString();
         console.log(carpeoplenum);
@@ -111,30 +115,31 @@ appointmentDaysBtn.onclick = function () {
 };
 
 ////修改系统预约开放时间
-//flags = "20";
-//var sysStartTime = 9;
-//var sysEndTime = 22;
-//urlstr = "AdminHandler.ashx?flags= " + flags + "&sysStartTime=" + sysStartTime + "&sysEndTime=" + sysEndTime;
-//myAjax("POST", urlstr, "", function (data) {
-//    //alert(data.toString());
-//    if (data.toString() == "404") {
-//        alert("你还没有登录！");
-//        window.location.href = "index.htm";
-//    } else if (data.toString() == "-1") {
-//        alert("系统开放开始时间比结束时间不早，不符合逻辑");
-//    } else if (data.toString() == "-2") {
-//        alert("输入的时间段不在0-24小时范围内");
-//    } else if (data.toString() == "-3") {
-//        alert("系统错误，系统预约开放时间修改失败！");
-//    } else if (data.toString() == "1") {
-//        alert("系统预约开放时间修改成功");
-//      //  window.location.href = "changeBookingInfo.html";
-//    }
-//    else {
-//        //alert(data.toString());
-//    }
-//})
-
+$('#sysTimesBtn').on('click', function () {
+    flags = "20";
+    var sysStartTime = $('#startTime').val();
+    var sysEndTime = $('#endTime').val();
+    urlstr = "AdminHandler.ashx?flags= " + flags + "&sysStartTime=" + sysStartTime + "&sysEndTime=" + sysEndTime;
+    myAjax("POST", urlstr, "", function (data) {
+        //alert(data.toString());
+        if (data.toString() == "404") {
+            alert("你还没有登录！");
+            window.location.href = "index.htm";
+        } else if (data.toString() == "-1") {
+            alert("系统开放开始时间比结束时间不早，不符合逻辑");
+        } else if (data.toString() == "-2") {
+            alert("输入的时间段不在0-24小时范围内");
+        } else if (data.toString() == "-3") {
+            alert("系统错误，系统预约开放时间修改失败！");
+        } else if (data.toString() == "1") {
+            alert("系统预约开放时间修改成功");
+            window.location.href = "changeBookingInfo.html";
+        }
+        else {
+            //alert(data.toString());
+        }
+    })
+})
 
 //添加新信息
 //教练

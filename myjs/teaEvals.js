@@ -29,7 +29,7 @@
             var parames = "";
             var url = "TeaEvalHandler.ashx?flags=1&fuwutaidu=" + fuwutaidu + "&jiaxuejineng=" + jiaxuejineng + "&chidaoqueqin=" + chidaoqueqin + "&chinakayaodis=" + chinakayaodis
              + "&eyaneyuzhongshang=" + eyaneyuzhongshang + "&zonghepingjia=" + zonghepingjia + "&qitajianyi=" + qitajianyi
-             + "&teaEvalId=" + teaEvalId;
+             ;
             myAjax("POST", url, parames, function (data) {
                 var str = data.toString();
                 if (str == "404") {
@@ -37,6 +37,7 @@
                     window.location.href = "index.htm";
                 } else if (str === "1") {
                     alert("评教成功!");
+                    window.location.href = "booking.htm";
                 } else if (str === "-1") {
                     alert("数据有误，请重新尝试！");
                 } else if (str === "-2") {

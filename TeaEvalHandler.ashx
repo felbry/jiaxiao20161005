@@ -2,9 +2,10 @@
 
 using System;
 using System.Web;
+using System.Web.SessionState;
 using jiaxiao.dll;
 using System.Data;
-public class TeaEvalHandler : IHttpHandler
+public class TeaEvalHandler : IHttpHandler,IRequiresSessionState
 {
     //学生评教系统
     //评价等级划分
@@ -63,17 +64,37 @@ public class TeaEvalHandler : IHttpHandler
         //    username = "";
         //    password = "";
         //    typename = "";
-        //}
-        string username = "1";
-        string password = "123";
-        string typename = "admin";
+        //}context.Session["username"].ToString();
+        //string username = "1";
+        //string password = "123";
+        //string typename = "student";
+        string username="";
+        string password="";
+        string typename="";
+        try
+        {
+             username = context.Session["username"].ToString(); ;
+             password = context.Session["password"].ToString(); ;
+             typename = context.Session["typename"].ToString(); ;
+        }
+        catch
+        {
+            username = "";
+            password = "";
+            typename = "";
+        }
         if (username != "" && password != "" && typename != "")
         {
             int flags = 0;
             flags = Convert.ToInt32(context.Request.Params["flags"]);
             if (typename == "student")
             {
-                if (flags == 1)
+                if (flags != 1)
+                {
+                    //非法访问
+                    context.Response.Write("-10");
+                    return;
+                }else if (flags == 1)
                 {
                     //学员进行评教
                     //预约唯一id(自动增长),服务态度，教学技能，纪律情况（有无无故迟到或缺勤情况，有无吃拿卡要情况，有无恶言恶语、中伤学员情况），综合评价，其他建议，教练唯一id,学生唯一id,评价结束时间，评价开始时间，评教时间
@@ -141,17 +162,34 @@ public class TeaEvalHandler : IHttpHandler
             }
             else if (typename == "admin")
             {
-
+                
                 //评教系统管理
                 if (flags == 2)
                 {
-                    int start_year = Convert.ToInt32(context.Request.Params["start_year"]);
-                    int start_month = Convert.ToInt32(context.Request.Params["start_month"]);
-                    int start_day = Convert.ToInt32(context.Request.Params["start_day"]);
-                    int end_year = Convert.ToInt32(context.Request.Params["end_year"]);
-                    int end_month = Convert.ToInt32(context.Request.Params["end_month"]);
-                    int end_day = Convert.ToInt32(context.Request.Params["end_day"]);
-                    DateTime starttime = Convert.ToDateTime("2000/10/1"), endtime = Convert.ToDateTime("2000/10/2");
+                    int start_year=-1, start_month=-1, start_day=-1, end_year=-1, end_month=-1, end_day=-1;
+                    try
+                    {
+                        
+                        start_year =  Convert.ToInt32(context.Request.Params["start_year"]);
+                        start_month = Convert.ToInt32(context.Request.Params["start_month"]);
+                        start_day =  Convert.ToInt32(context.Request.Params["start_day"]);
+                        end_year =  Convert.ToInt32(context.Request.Params["end_year"]);
+                        end_month =  Convert.ToInt32(context.Request.Params["end_month"]);
+                        end_day =  Convert.ToInt32(context.Request.Params["end_day"]);
+                    }
+                    catch
+                    {
+                        //输入非法
+                        context.Response.Write("-6");
+                        return;
+                    }
+                    //int start_year = Convert.ToInt32(context.Request.Params["start_year"]);
+                    //int start_month = Convert.ToInt32(context.Request.Params["start_month"]);
+                    //int start_day = Convert.ToInt32(context.Request.Params["start_day"]);
+                    //int end_year = Convert.ToInt32(context.Request.Params["end_year"]);
+                    //int end_month = Convert.ToInt32(context.Request.Params["end_month"]);
+                    //int end_day = Convert.ToInt32(context.Request.Params["end_day"]);
+                    DateTime starttime,endtime;// = Convert.ToDateTime("2000/10/1"), endtime = Convert.ToDateTime("2000/10/2");
                     try
                     {
                         starttime = new DateTime(start_year, start_month, start_day);
@@ -171,16 +209,16 @@ public class TeaEvalHandler : IHttpHandler
                     }
                     if (DateTime.Compare(starttime, endtime) > 0)
                     {
-                        //当前评价开始时间小于结束时间，请重新输入
+                        //当前评价开始时间晚于结束时间，请重新输入
                         context.Response.Write("-5");
                         return;
                     }
-                    if (DateTime.Compare(DateTime.Now, starttime) < 0)
-                    {
-                        //当前评价开始时间有误，请输入从今天开始往后的时间作为开始时间
-                        context.Response.Write("-4");
-                        return;
-                    }
+                    //if (DateTime.Compare(DateTime.Now, starttime) < 0)
+                    //{
+                    //    //当前评价开始时间有误，请输入从今天开始往后的时间作为开始时间
+                    //    context.Response.Write("-4");
+                    //    return;
+                    //}
                     //增加一个评教阶段
                     //DateTime starttime = Convert.ToDateTime("2016/9/30");
                     // DateTime endtime = Convert.ToDateTime("2016/10/10");
